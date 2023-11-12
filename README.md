@@ -27,8 +27,8 @@
 
 ## Installation:
 1. Clone the repository:
-```git clone ```
-```cd ```
+```git clone https://github.com/karthikch25/Hackathon280-copilot.git```
+```cd Hackathon280-copilot```
 
 2. Install dependencies:
 ```pip install -r requirements.txt```
