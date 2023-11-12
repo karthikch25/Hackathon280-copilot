@@ -3,26 +3,26 @@
 ## Overview:
 
 • Country Selector – Able to select following countries (at minimum)
-• China
-• India
-• USA
+    China
+    India
+    USA
 • Should be able to render time series
-• X-axis: Year
-• Y Axis: Either USD ($) Value or Percentage (%)
-• Should be able to select years on the time series
+    X-axis: Year
+    Y Axis: Either USD ($) Value or Percentage (%)
+    Should be able to select years on the time series
 • Support Network and Local Mode
-• REST Deployment
-• Able to support Local mode also (hint: to have SQL Database as part of local storage)
+    REST Deployment
+    Able to support Local mode also (hint: to have SQL Database as part of local storage)
 • Drag and Drop
-• Able to drag and drop particular indicator on to Graph and should append indicator to the main graph
+    Able to drag and drop particular indicator on to Graph and should append indicator to the main graph
 • Annotation Support
-• Should be able to add notes on the graph
+    Should be able to add notes on the graph
 • Natural Language Interaction with Data
-• Budget Speeches
+    Budget Speeches
 • Personas
-• ECON Researcher
+    ECON Researcher
 • More annotation
-•GovtRepresentative
+    GovtRepresentative
 
 
 ## Installation:
