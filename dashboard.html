@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Collapsible Sidebar with Sub-items</title>
+      <style>
+         * {
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: Arial, sans-serif;
+         }
+         header, footer {
+         background-color: white;
+         color: black;
+         text-align: center;
+         padding: 1rem;
+         }
+         .container {
+         display: flex;
+         }
+         .sidebar {
+         width: 350px;
+         background: white;
+         height: calc(100vh - 100px); /* Adjusted for header and footer */
+         overflow-y: auto;
+         }
+         .sidebar h2 {
+         padding: 10px;
+         cursor: pointer;
+         border-bottom: 1px solid #ddd;
+         }
+         .sidebar h2:hover {
+         background: #ddd;
+         }
+         .submenu {
+         list-style-type: none;
+         padding: 0;
+         display: all;
+         }
+         .submenu li {
+         padding: 8px 15px;
+         border-bottom: 1px solid #ddd;
+         cursor: pointer;
+         }
+         .submenu li:hover {
+         background: #ddd;
+         }
+         .content {
+         flex-grow: 1;
+         padding: 200px;
+         }
+         .arrow {
+         float: right;
+         transition: transform 0.3s ease;
+         }
+         /* Style buttons */
+         .btn {
+         background-color: DodgerBlue; /* Blue background */
+         border: none; /* Remove borders */
+         color: white; /* White text */
+         padding: 12px 16px; /* Some padding */
+         font-size: 16px; /* Set a font size */
+         cursor: pointer; /* Mouse pointer on hover */
+         }
+         /* Darker background on mouse-over */
+         .btn:hover {
+         background-color: RoyalBlue;
+         }
+         .range-inputs {
+         margin: 30px;
+         }
+         .year-display {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         }
+         #flags {
+         display: none;
+         list-style: none;
+         padding: 0;
+         margin-top: 10px;
+         border: 1px solid #ddd;
+         width: 200px;
+         }
+         #flags li {
+         padding: 5px 10px;
+         border-bottom: 1px solid #eee;
+         cursor: pointer;
+         }
+         #flags li:last-child {
+         border-bottom: none;
+         }
+         #flags li:hover {
+         background-color: #f0f0f0;
+         }
+         .flag {
+         height: 15px;
+         margin-right: 8px;
+         }
+         button {
+         margin: 10px 0;
+         }
+         table {
+         border: 1px solid black;
+         border-radius: 10px;
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <table>
+            <tbody>
+               <tr>
+                  <td align="left"><button class="btn">Logo</button></td>
+                  <td align="center">
+                     <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        Macroeconomic Researcher Food Security Time Series and Large Language Chat GPT Dashboard
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                     </h4>
+                  </td>
+                  <td align="right">
+                     <button id="showFlags">Change Country</button>
+                     <ul id="flags">
+                        <li onclick="selectCountry('United States', 'us', 'https://flagcdn.com/w20/us.png')">
+                           <img src="https://flagcdn.com/w20/us.png" class="flag" alt="USA Flag"> United States
+                        </li>
+                        <li onclick="selectCountry('China', 'cn', 'https://flagcdn.com/w20/cn.png')">
+                           <img src="https://flagcdn.com/w20/cn.png" class="flag" alt="China Flag"> China
+                        </li>
+                        <li onclick="selectCountry('India', 'in', 'https://flagcdn.com/w20/in.png')">
+                           <img src="https://flagcdn.com/w20/in.png" class="flag" alt="India Flag"> India
+                        </li>
+                        <!-- Add more countries as needed -->
+                     </ul>
+                     <p>Selected Country:<img id="flag" src="https://flagcdn.com/w20/us.png"></p>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </header>
+      <div class="container">
+         <div class="sidebar">
+            <h3 onclick="toggle('submenu1')">Macroeconomic<span class="arrow">&#9660;</span></h3>
+            <ul id="submenu1" class="submenu">
+               <li onclick="showContent('gdp-growth')">GDP Growth Range</li>
+               <li onclick="showContent('gdp-current')">GDP Current (USD)</li>
+               <li onclick="showContent('gdp-acct-bal')">Current Account Balance (% of GDP)</li>
+               <li onclick="showContent('fdi-net')">Foreign direct investment, net (BoP, current US$)</li>
+               <li onclick="showContent('fdi-net-out')">Foreign direct investment, net outflows (BoP, current US$)</li>
+               <li onclick="showContent('fdi-net-in')">Foreign direct investment, net inflows (% of GDP)</li>
+               <li onclick="showContent('fdi-net-out-2')">FDI-NetOutflows(%ofGDP)</li>
+            </ul>
+            <h3 onclick="toggle('submenu2')">Agricultural<span class="arrow">&#9660;</span></h3>
+            <ul id="submenu2" class="submenu">
+               <li onclick="showContent('agr-Contribution')">Agricultural Contribution (% GDP)</li>
+               <li onclick="showContent('agr-mfg')">Manufacturing(%GDP)</li>
+               <li onclick="showContent('agr-growth')">Agriculture, forestry, and fishing, value added (annual % growth)</li>
+               <li onclick="showContent('agr-consumption-kg')">Fertilizer consumption (kilograms per hectare of arable land)</li>
+               <li onclick="showContent('agr-consumption-%')">Fertilizer consumption (% of fertilizer production)</li>
+            </ul>
+            <h3 onclick="toggle('submenu3')">Debt<span class="arrow">&#9660;</span></h3>
+            <ul id="submenu3" class="submenu">
+               <li onclick="showContent('debt-res1')">Total reserves in months of imports</li>
+               <li onclick="showContent('debt-res2')">Total reserves (includes gold, current US$)</li>
+               <li onclick="showContent('debt-res3')">Total reserves (% of total external debt)</li>
+               <li onclick="showContent('debt-service1')">Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
+               <li onclick="showContent('debt-service2')">Total debt service (% of GNI)</li>
+               <li onclick="showContent('debt-gni')">GNI (current US$)</li>
+            </ul>
+         </div>
+         <div class="range-inputs">
+            <label for="yearStart">Start Year: <span id="startYearLabel">1960</span></label>
+            <input type="range" id="yearStart" name="yearStart" min="1960" max="2022" value="1960" oninput="updateYearLabels()">
+            <label for="yearEnd">End Year: <span id="endYearLabel">2022</span></label>
+            <input type="range" id="yearEnd" name="yearEnd" min="1960" max="2022" value="2022" oninput="updateYearLabels()">
+            <br><br>
+            <div>
+               <p align="center">Selected Year Range: <span id="selectedYearRange">1960 - 2022</span></p>
+               <div>
+                  <textarea id="noteText" placeholder="Enter your new note" style="position: absolute; right: 0;"></textarea>
+                  <br><br>
+                  <button class="btn" id="updateButton" style="position: absolute; right: 0;">Annotation</button>
+                  <div id="updateButton">
+                     <br><br>   <br><br>
+                     <p style="position: absolute; right: 0;" id="queryResult"></p>
+                  </div>
+               </div>
+               <br><br>
+               <div style="position: absolute; right: 0;">
+                  <a href="https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?downloadformat=excel" download="gdp-growth.xls">
+                     <button class="btn"><h4>Import-Export</h4></button>
+                 </a>
+               </div>
+               <br><br>
+               <div id="gdp-growth" class="content-section">
+                  <div class="year-display">
+                     <p>GDP Growth Range</p>
+                     <iframe id="yearFrame1" src="https://data.worldbank.org/share/widget?end=2022&indicators=NY.GDP.MKTP.KD.ZG&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="gdp-current" class="content-section">
+                  <div class="year-display">
+                     <p>GDP Current (USD)</p>
+                     <iframe id="yearFrame2" src="https://data.worldbank.org/share/widget?end=2022&indicators=NY.GDP.MKTP.CD&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="gdp-acct-bal" class="content-section">
+                  <div class="year-display">
+                     <p>Current Account Balance (% of GDP)</p>
+                     <iframe id="yearFrame3" src="https://data.worldbank.org/share/widget?end=2022&indicators=BN.CAB.XOKA.GD.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="fdi-net" class="content-section">
+                  <div class="year-display">
+                     <p>Foreign direct investment, net (BoP, current US$)</p>
+                     <iframe id="yearFrame4" src="https://data.worldbank.org/share/widget?end=2022&indicators=BN.KLT.DINV.CD&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br>
+               <div id="fdi-net-out" class="content-section">
+                  <div class="year-display">
+                     <p>Foreign direct investment, net outflows (BoP, current US$)</p>
+                     <iframe id="yearFrame5" src="https://data.worldbank.org/share/widget?end=2022&indicators=BM.KLT.DINV.CD.WD&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="fdi-net-in" class="content-section">
+                  <div class="year-display">
+                     <p>Foreign direct investment, net inflows (% of GDP)</p>
+                     <iframe id="yearFrame6" src="https://data.worldbank.org/share/widget?end=2022&indicators=BX.KLT.DINV.WD.GD.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="fdi-net-out-2" class="content-section">
+                  <div class="year-display">
+                     <p>FDI-NetOutflows(%ofGDP)</p>
+                     <iframe id="yearFrame7" src="https://data.worldbank.org/share/widget?end=2022&indicators=API_BM.KLT.DINV.WD.GD.ZS_DS2&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="agr-Contribution" class="content-section">
+                  <div class="year-display">
+                     <p>Agricultural Contribution (% GDP)</p>
+                     <iframe id="yearFrame8" src="https://data.worldbank.org/share/widget?end=2022&indicators=NV.AGR.TOTL.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="agr-mfg" class="content-section">
+                  <div class="year-display">
+                     <p>Manufacturing(%GDP)</p>
+                     <iframe id="yearFrame9" src="https://data.worldbank.org/share/widget?end=2022&indicators=NV.IND.MANF.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="agr-growth" class="content-section">
+                  <div class="year-display">
+                     <p>Agriculture, forestry, and fishing, value added (annual % growth)</p>
+                     <iframe id="yearFrame10" src="https://data.worldbank.org/share/widget?end=2022&indicators=NV.AGR.TOTL.KD.ZG&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="agr-consumption-kg" class="content-section">
+                  <div class="year-display">
+                     <p>Fertilizer consumption (kilograms per hectare of arable land)</p>
+                     <iframe id="yearFrame11" src="https://data.worldbank.org/share/widget?end=2022&indicators=AG.CON.FERT.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="agr-consumption-%" class="content-section">
+                  <div class="year-display">
+                     <p>Fertilizer consumption (% of fertilizer production)</p>
+                     <iframe id="yearFrame12" src="https://data.worldbank.org/share/widget?end=2022&indicators=AG.CON.FERT.PT.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-res1" class="content-section">
+                  <div class="year-display">
+                     <p>Total reserves in months of imports</p>
+                     <iframe id="yearFrame13" src="https://data.worldbank.org/share/widget?end=2022&indicators=FI.RES.TOTL.MO&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-res2" class="content-section">
+                  <div class="year-display">
+                     <p>Total reserves (includes gold, current US$))</p>
+                     <iframe id="yearFrame14" src="https://data.worldbank.org/share/widget?end=2022&indicators=FI.RES.TOTL.CD&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-res3" class="content-section">
+                  <div class="year-display">
+                     <p>Total reserves (% of total external debt)</p>
+                     <iframe id="yearFrame15" src="https://data.worldbank.org/share/widget?end=2022&indicators=FI.RES.TOTL.DT.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-service1" class="content-section">
+                  <div class="year-display">
+                     <p>Debt service (PPG and IMF only, % of exports of goods, services and primary income)</p>
+                     <iframe id="yearFrame16" src="https://data.worldbank.org/share/widget?end=2022&indicators=DT.TDS.DPPF.XP.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-service2" class="content-section">
+                  <div class="year-display">
+                     <p>Total debt service (% of GNI)</p>
+                     <iframe id="yearFrame17" src="https://data.worldbank.org/share/widget?end=2022&indicators=DT.TDS.DECT.GN.ZS&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+               <br><br>
+               <div id="debt-gni" class="content-section">
+                  <div class="year-display">
+                     <p>GNI (current US$)</p>
+                     <iframe id="yearFrame18" src="https://data.worldbank.org/share/widget?end=2022&indicators=NY.GNP.MKTP.CD&locations=us&start=1963" width='700' height='466' frameBorder='0' scrolling="yes" ></iframe>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <br><br><br>
+      <footer>
+         <p>Copyright © 2023</p>
+      </footer>
+      <script>
+         function toggle(submenuId) {
+             var submenu = document.getElementById(submenuId);
+             var arrow = submenu.previousElementSibling.querySelector('.arrow');
+         
+             if (submenu.style.display === 'block') {
+                 submenu.style.display = 'none';
+             } else {
+                 // Close all submenus and reset arrows
+                 document.querySelectorAll('.submenu').forEach(function(sub) {
+                     sub.style.display = 'none';
+                 });
+                 document.querySelectorAll('.arrow').forEach(function(arr) {
+                     arr.innerHTML = '&#9660;';
+                 });
+         
+                 // Open the clicked submenu
+                 submenu.style.display = 'block';
+                 arrow.innerHTML = '&#9650;';
+             }
+         }
+         function showContent(sectionId) {
+         const sections = document.querySelectorAll('.content-section');
+         sections.forEach(section => {
+         section.style.display = 'none';
+         });
+         
+         const activeSection = document.getElementById(sectionId);
+         activeSection.style.display = 'block';
+         }
+         
+         function updateYearLabels() {
+         var startYear = document.getElementById('yearStart').value;
+         var endYear = document.getElementById('yearEnd').value;
+         
+         // Update the labels
+         document.getElementById('startYearLabel').textContent = startYear;
+         document.getElementById('endYearLabel').textContent = endYear;
+         
+         // Update the display
+         document.getElementById('selectedYearRange').textContent = startYear + ' - ' + endYear;
+         var iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GDP.MKTP.KD.ZG&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame1').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GDP.MKTP.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame2').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BN.CAB.XOKA.GD.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame3').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BN.KLT.DINV.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame4').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BM.KLT.DINV.CD.WD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame5').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BX.KLT.DINV.WD.GD.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame6').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=API_BM.KLT.DINV.WD.GD.ZS_DS2&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame7').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.AGR.TOTL.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame8').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.IND.MANF.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame9').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.AGR.TOTL.KD.ZG&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame10').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=AG.CON.FERT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame11').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=AG.CON.FERT.PT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame12').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.MO&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame13').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame14').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.DT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame15').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=DT.TDS.DPPF.XP.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame16').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=DT.TDS.DECT.GN.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame17').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GNP.MKTP.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame18').src = iframeUrl;
+         }
+         
+         document.getElementById('showFlags').onclick = function() {
+         var flagsList = document.getElementById('flags');
+         flagsList.style.display = flagsList.style.display === 'none' ? 'block' : 'none';
+         };
+         
+         function selectCountry(countryName, countryCode, flag) {
+         document.getElementById('flag').src = flag;
+         document.getElementById('flags').style.display = 'none';
+         // Additional code to handle the selected country can be added here
+         console.log('Country selected:', countryName, countryCode);
+         
+         var startYear = document.getElementById('yearStart').value;
+         var endYear = document.getElementById('yearEnd').value;
+         
+         // Update the labels
+         document.getElementById('startYearLabel').textContent = startYear;
+         document.getElementById('endYearLabel').textContent = endYear;
+         
+         // Update the display
+         document.getElementById('selectedYearRange').textContent = startYear + ' - ' + endYear;
+         var iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GDP.MKTP.KD.ZG&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame1').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GDP.MKTP.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame2').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BN.CAB.XOKA.GD.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame3').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BN.KLT.DINV.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame4').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BM.KLT.DINV.CD.WD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame5').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=BX.KLT.DINV.WD.GD.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame6').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=API_BM.KLT.DINV.WD.GD.ZS_DS2&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame7').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.AGR.TOTL.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame8').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.IND.MANF.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame9').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NV.AGR.TOTL.KD.ZG&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame10').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=AG.CON.FERT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame11').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=AG.CON.FERT.PT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame12').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.MO&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame13').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame14').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=FI.RES.TOTL.DT.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame15').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=DT.TDS.DPPF.XP.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame16').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=DT.TDS.DECT.GN.ZS&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame17').src = iframeUrl;
+         iframeUrl = "https://data.worldbank.org/share/widget?end="+endYear+"&indicators=NY.GNP.MKTP.CD&locations="+countryCode+"&start="+startYear+"\"";
+         document.getElementById('yearFrame18').src = iframeUrl;
+         }
+         
+         document.getElementById('updateButton').addEventListener('click', function() {
+         const newValue = document.getElementById('noteText').value;
+         
+         fetch('http://localhost:3000/update-data', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ newValue: newValue }),
+         })
+         .then(response => response.json())
+         .then(data => {
+         console.log('Success:', data);
+         })
+         .catch((error) => {
+         console.error('Error:', error);
+         });
+         });
+         
+         
+         document.getElementById('updateButton').addEventListener('click', function() {
+         fetch('http://localhost:3000/run-query')
+         .then(response => response.json())
+         .then(data => {
+            document.getElementById('queryResult').innerText = JSON.stringify(data);
+         })
+         .catch(error => console.error('Error:', error));
+         });
+         
+         // Initialize the display
+         window.onload = updateYearLabels;""
+      </script>
+   </body>
+</html>
