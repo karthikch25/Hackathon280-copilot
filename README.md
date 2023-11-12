@@ -36,6 +36,8 @@
 3. Start the Streamlit app:
 ```streamlit run dashboard.py```
 
+Application Link: https://hackathon280-copilot-jusmhupfjbf3grhvntep4q.streamlit.app/
+
 ## License:
 This project is licensed under the MIT License.
 
